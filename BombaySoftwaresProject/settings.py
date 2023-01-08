@@ -232,4 +232,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '655898094440-pbqqv8s0ircbgv1tj3k348abgblhm0sp.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 # AUTH_USER_MODEL = 'BombaySoftwares.UserRegistration'
 
-STATICFILES_STORAGE = 'BombaySoftwaresProject.storage.S3Storage'
+#STATICFILES_STORAGE = 'BombaySoftwaresProject.storage.S3Storage'
