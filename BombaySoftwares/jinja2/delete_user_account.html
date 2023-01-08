@@ -1,0 +1,23 @@
+{% extends 'header.html' %}
+{% block content %}
+ 
+
+ <div class="modal-content p-2 ">
+   <div class="modal-header mb-3">
+     <h5 class="modal-title" id="exampleModalToggleLabel">Delete Account Holder </h5>
+
+   </div>
+   <div class="modal-body mb-3">
+     Are you sure you want to delete user <br>
+     <b>{{ object.first_name | title }} {{ object.last_name | title }}</b>
+   </div>
+   <div class="modal-footer">
+     <a href="{{ url ('userdetail') }}"><button type="button" class="btn btn-secondary m-2" >Back</button></a>
+     <form method="post" >
+       {{ csrf_input }}
+      <button type="submit" class="btn btn-primary m-2" >Confirm</button>
+     </form>
+   </div>
+ </div>
+ 
+{% endblock %}

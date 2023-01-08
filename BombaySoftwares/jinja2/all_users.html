@@ -1,0 +1,255 @@
+{% extends 'header.html' %}
+{% block content %} 
+<style type="text/css">
+.table-responsive thead,th{
+position: sticky;
+top:0;
+background-color: whitesmoke;
+z-index:4
+
+}
+
+/* ==================== Sortable */
+.sortable th:hover::after {
+  color: green;
+  font-size: 1.2em;
+  content: '\00a0\025B8 ';
+}
+
+.sortable th::after {
+  font-size: 1.2em;
+  color: transparent;
+  content: '\00a0\025B8';
+  
+}
+
+.sortable th.dir-d::after {
+  color: green;
+  content: '\00a0\025BE';
+}
+
+.sortable th.dir-u::after {
+  color: green;
+  content: '\00a0\025B4';
+}
+
+th.no-sort {
+  pointer-events: none;
+}
+
+th.no-sort::after {
+  content: none;
+}
+/* ==================== End Sortable */
+
+.table-responsive td {
+background-color:white}
+.table-responsive{
+height:400px;
+overflow:scroll;
+}
+button{
+width:90px;}
+.panel_none{
+display: none}
+
+.sr_no{
+display:none}
+.panel_show{
+display:none}
+
+.blue_button:focus{
+      border-color: blue!important;
+      box-shadow: 0 0 0 0.25rem rgb(240, 255, 255)!important;
+      
+}
+.submit_button a{
+color:white!important}
+.pagination a:hover{
+color:green}
+</style>
+
+<section>
+
+  <div class="mx-2 py-2 main_card ">
+<div class="row">
+   <div class="col">
+     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+       <ol class="breadcrumb mb-0">
+         <li class="breadcrumb-item"><a href="{{ url ('home') }}">Home</a></li>
+ 
+         <li class="breadcrumb-item active" aria-current="page">Users Detail</li>
+       </ol>
+     </nav>
+   </div>
+ </div>
+ </div>
+         <div class="mx-2">
+        
+             {% if messages %}
+            <div class="alert alert-info alert-dismissible fade show my-0 mb-3" role="alert">   
+             {% for message in messages %}
+       {{ message | safe }} 
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             {% endfor %}
+             </div>
+             {% endif %}
+         <div class="row">
+         <div class="col-md-6">
+         <h3 align="center" class="md-4">All Users Detail</h3>
+         </div>
+         <div class="col-md-6 ">
+         
+       <form class ="input-group text-right mb-4" method ="post" action="{{ url('search') }}">
+       {{ csrf_input }}
+       <input
+       autocomplete="off"
+       type="search"
+       class="form-control rounded"
+       placeholder="Search by name, phone, email or type"
+       name="search"
+       
+   
+       required />
+     <button type="submit" class="input-group-text border-0"
+     style="width:25px"><i class="fas fa-search"></i
+      ></button>
+       </form>
+         </div>
+         </div>
+    <p style ="color:grey"> table can be  sort by name or email only</p>
+             <div class="table-responsive " id="table_data"> 
+             <table class="table sortable" id="table">
+             <thead >
+             <tr>
+             <th id="heading_data" class="no-sort">#</th>
+             <th class="no-sort" scope="col">Profile</th>
+             <th>Full Name</th>
+             <th class="no-sort">Mobile Number</th>
+             <th >Email</th>
+             <th class="no-sort">Gender</th>
+             <th class="no-sort">Date Of Birth</th>
+          <th class="no-sort">Type</th>
+             </tr>
+             </thead>
+             <tbody>
+             
+              {% for user in users_list %}
+          <tr  {% if request.user.is_superuser %} id="clr{{loop.index}}" {% endif %}>
+          
+            <td>
+            <p class="" id="sr_no{{loop.index}}">{{loop.index}}</p>
+            <div class="panel_none " id="panel{{loop.index}}">
+<!--<button type="button" class="btn-close" disabled aria-label="Close" id="close_button"></button>-->
+    <a href="user/account-delete/{{user.pk}}" ><button class="btn btn-primary red_button m-2" id="delete">Delete</button></a>
+            </div>
+            </td>
+            
+           
+            <td><img src="{% if user.profile_pic %}{{user.profile_pic.url}}{% elif user.gender == 'Female' %}{{ static ('user_2.jpg') }}{% else %}{{ static ('user_1.jpg') }}{% endif %}" height="80" width="80"></td>
+            
+             <td> {{user.first_name|title}} {{user.last_name|title}}</td> 
+             <td>{{user.mobile_number}}</td>
+             <td>{{user.email}}</td>
+             <td>{{user.gender}}</td>
+             <td>{{user.birthdate}}</td>
+             <td>{{user.type}}</td>
+                </tr>
+           
+
+             {% endfor %}
+             
+             </tbody>
+             </table>    
+          
+              </div> 
+              {% if page_obj.paginator.num_pages > 1 %}   
+        
+             <nav aria-label="..." >
+             
+             <ul class="pagination row m-0" >
+             
+             {% if page_obj.has_previous() %}
+             <div class="col-4">
+             <li class="page-item">
+             <a href="?page={{page_obj.previous_page_number() }}"class="page-link">Previous</a>
+             </li>
+             </div>
+             {% else %}
+             <div class="col-4">
+             <li class="page-item disabled">
+             <a href="" class="page-link ">Previous</a>
+             </li>
+             </div>
+             {% endif %}
+             
+             {% if page_obj.has_next() %}
+             <div class="col-4">
+             <li class="page-item ">
+             <a class="page-link " href="?page={{ page_obj.next_page_number() }}">Next</a>
+             </li>
+             </div>
+             {% else %}
+             <div class="col-4">
+             <li class="page-item disabled">
+             <a class="page-link" href="">Next</a>
+             </li>
+             </div>
+             {% endif %}
+             
+             
+             {% for pg in page_obj.paginator.page_range %}
+             <div class="col-2">
+             <li {% if page_obj.number == pg %}class="page-item rounded submit_button" aria-current="page" {% else %}class="page-item"{% endif %}>
+             <a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+             </div>
+             {% endfor %}
+             
+             </ul>
+             
+             </nav>
+            
+                  {% endif %}
+                </div> 
+         <input type="hidden" id="users" value='{
+         {% for user in all_users %} 
+         "{{user.account_number}}":["{{user.holder_name}}","{{user.profile_pic.url}}","{{user.bank_name}}","{{user.mobile_number}}","{{user.email}}","{{user.account_number}}","{{user.card_number}}","{{user.expired_date}}","{{user.cvv}}","{{user.city}}","{{user.gender}}","{{user.address}}","{{user.birthdate}}","{{user.balance}}","{{user.pk}}","{{user.signature.url}}"] {% if all_users.last.signature != user.signature %}, {% endif %}
+         {% endfor %}
+         }'>
+              
+ </section>
+
+ 
+ <script >
+var data_count = parseInt("{{users_list|length}}");
+  for (let i = 1; i <= data_count; i++) {
+  let sr_no = document.getElementById("sr_no"+i);
+  let close_button = document.getElementById("close_button"+i);
+  let deleting = document.getElementById("delete");
+  let hidden_data = document.getElementById("panel"+i);
+ let main_div = document.getElementById("clr"+i);
+let data_heading = document.getElementById("heading_data");
+ main_div.addEventListener("click",()=>{
+if (sr_no.style.display !== "none"){
+  
+ sr_no.style.display = "none";
+ hidden_data.classList.remove("panel_none");
+ data_heading.innerHTML = "#MakeChanges";
+ 
+}
+
+else{
+sr_no.style.display = "block";
+hidden_data.classList.add("panel_none");
+data_heading.innerHTML="#";}
+
+ });
+
+}
+
+
+ </script>
+
+<script type="text/javascript" src="{{ static ('sortable.js') }}"></script>
+
+{% endblock %}
