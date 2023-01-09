@@ -19,12 +19,17 @@ View Users Page, have options like search user and sort table ascending, descend
 
 ![Untitled3](https://user-images.githubusercontent.com/90356288/211230180-f580f8e8-653f-44ad-b9e0-253480eedfec.png)
 
+
 Image 4:
 I added some extra things in this website like custom 404 page and one special thing for superuser
 
 ![Untitled8](https://user-images.githubusercontent.com/90356288/211230185-ba28151f-7ee1-4c11-9ab4-2da3e8e95663.png)
 
 Image5:
+Admin account <br>
+Email: admin@admin.com <br>
+Password: admin
+
 If you are login as admin you have access to delete user,you need to click on the row of user which you want to delete it will auto display delete button 
 
 ![Untitled7](https://user-images.githubusercontent.com/90356288/211230188-b6d9ad96-5ace-4ebb-887a-0330580262d2.png)
