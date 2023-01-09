@@ -41,3 +41,5 @@ Image6:
 Search User page, searched user details will be shown here in table format
 
 ![Untitled4](https://user-images.githubusercontent.com/90356288/211230182-c280992a-e462-4ffa-bfdc-46e1add233b5.png)
+
+Other details are like if you are editing your profile and if you change your email then you will be logged out after updating email, if you are changing your password then after you will be logged out and will recieved ma of password updated
