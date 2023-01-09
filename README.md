@@ -24,7 +24,7 @@ View Users Page, have options like search user and sort table ascending, descend
 
 
 Image 4:
-I added some extra things in this website like custom 404 page and one special thing for superuser
+I added some extra things in this website like custom 404 page and one for superuser
 
 ![Untitled8](https://user-images.githubusercontent.com/90356288/211230185-ba28151f-7ee1-4c11-9ab4-2da3e8e95663.png)
 
