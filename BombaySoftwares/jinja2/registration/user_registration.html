@@ -46,7 +46,7 @@
   <div class ="d-flex justify-content-center" >
      
     {{ field }}
-    <p><label for="file" style="cursor: pointer"><img id="output" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqKCA0WCWoqjIX5hwq6JFfaakFaA2qzhHOUGdFx7vARMfel6LqTGZPT0Du&s=10" style ="height:150px; width:150px;border:solid; border-radius:50%;"/></label></p>
+    <p><label for="file" style="cursor: pointer"><img id="output" {% if 'admin/user/account-update/' in request.path and form.instance.profile_pic.url %} src="{{form.instance.profile_pic.url}}" {% else %} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqKCA0WCWoqjIX5hwq6JFfaakFaA2qzhHOUGdFx7vARMfel6LqTGZPT0Du&s=10" {% endif %} style ="height:150px; width:150px;border:solid; border-radius:50%;"/></label></p>
   <!--  <img src="https://cdn-icons-png.flaticon.com/512/83/83574.png" style="height:30px;margin-left:58%;margin-top:-90px;">  -->
  
    </div>
